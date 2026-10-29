@@ -1,0 +1,15 @@
+{
+  "zip": "14850",
+  "state": "NY",
+  "space_heater": true,
+  "window_ac": false,
+  "mini_fridge": true,
+  "fridge_energy_star": false,
+  "lighting": "halogen",
+  "bulbs": 3,
+  "desktop_pc": true,
+  "pc_left_on_hours": 6,
+  "pc_idle_watts": null,
+  "semester_start": "2025-08-25",
+  "semester_end": "2025-12-20"
+}

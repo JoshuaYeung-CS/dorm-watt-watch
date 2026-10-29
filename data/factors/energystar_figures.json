@@ -1,0 +1,12 @@
+{
+  "mini_fridge_energy_star_median_kwh_yr": 228.0,
+  "mini_fridge_federal_standard_median_kwh_yr": 284.0,
+  "mini_fridge_models": 914,
+  "mini_fridge_filter": "type = Compact Refrigerator, 2.5 <= total volume < 4.5 cu ft",
+  "desktop_sleep_watts_median": 1.6,
+  "desktop_short_idle_watts_median": 10.5,
+  "desktop_models": 307,
+  "room_ac_pct_less_than_federal_median": 38.0,
+  "room_ac_models": 174,
+  "room_ac_filter": "cooling capacity 5,000-8,000 Btu/h"
+}

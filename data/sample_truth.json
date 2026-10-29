@@ -1,0 +1,37 @@
+{
+  "note": "True per-category kWh of the synthetic sample household (2025), for checking the estimate.",
+  "kwh": {
+    "always_on": 431.55148900139653,
+    "heating": 969.075,
+    "cooling": 0.0,
+    "lighting": 139.91237699132407,
+    "electronics": 212.4497458307658
+  },
+  "params": {
+    "has_heater": true,
+    "heater_w": 1500.0,
+    "heat_set": 68.78872273682846,
+    "heat_at_night": false,
+    "has_ac": false,
+    "ac_w": 585.0384131562195,
+    "cool_set": 74.14082249546804,
+    "fridge_w": 92.51043988245412,
+    "fridge_duty70": 0.4051855979872587,
+    "fridge_period": 35.382241414917786,
+    "standby_w": 12.096981931023343,
+    "bulb": "halogen",
+    "n_bulbs": 3,
+    "light_elev": 2.6698935574971454,
+    "has_pc": true,
+    "pc_game_w": 316.4692249001408,
+    "pc_idle_w": 41.83886788336624,
+    "pc_left_on": 6.0,
+    "has_tv": false,
+    "tv_w": 124.84061233405932,
+    "has_kettle": true,
+    "has_dryer": true,
+    "summer_home": false,
+    "bed": 1.657918828078165,
+    "wake": 9.386853472625498
+  }
+}
