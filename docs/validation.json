@@ -1,0 +1,878 @@
+{
+  "n_households": 40,
+  "settings": {
+    "year_15min": {
+      "always_on": {
+        "n_present": 40,
+        "mae_kwh": 40.19186937146399,
+        "bias_kwh": -36.12503563470126,
+        "median_ape_pct": 10.59786686931699,
+        "p80_ape_pct": 14.804168267318008,
+        "mae_share_pts": 3.0165876823272377,
+        "interval_coverage": 0.125
+      },
+      "heating": {
+        "n_present": 26,
+        "mae_kwh": 30.645416935186592,
+        "bias_kwh": 13.489091915258063,
+        "median_ape_pct": 3.616246846805925,
+        "p80_ape_pct": 8.791140851591068,
+        "mae_share_pts": 1.789231388853189,
+        "interval_coverage": 0.575
+      },
+      "cooling": {
+        "n_present": 8,
+        "mae_kwh": 6.204313798241104,
+        "bias_kwh": 2.4850811629840566,
+        "median_ape_pct": 20.281799705631023,
+        "p80_ape_pct": 64.7570971671316,
+        "mae_share_pts": 0.387129463317992,
+        "interval_coverage": 0.7
+      },
+      "lighting": {
+        "n_present": 40,
+        "mae_kwh": 30.615280241950906,
+        "bias_kwh": 23.704608554464482,
+        "median_ape_pct": 31.563632781882884,
+        "p80_ape_pct": 78.36485118181189,
+        "mae_share_pts": 2.1864738274523123,
+        "interval_coverage": 0.7
+      },
+      "electronics": {
+        "n_present": 40,
+        "mae_kwh": 46.74309588516177,
+        "bias_kwh": -3.7640776635730475,
+        "median_ape_pct": 18.69765988974894,
+        "p80_ape_pct": 37.59989712517084,
+        "mae_share_pts": 3.380370911506107,
+        "interval_coverage": 0.35
+      },
+      "_top3_savings": {
+        "median_ape_pct": 3.8678295628479455,
+        "p80_ape_pct": 9.338176820882396,
+        "bias_pct": -0.435964967841162,
+        "same_top3_share": 0.75
+      }
+    },
+    "checklist_only_baseline": {
+      "always_on": {
+        "n_present": 40,
+        "mae_kwh": 132.32882715546512,
+        "bias_kwh": 66.19424711558783,
+        "median_ape_pct": 18.966852072004414,
+        "p80_ape_pct": 49.51521692264232,
+        "mae_share_pts": 9.203863670131636
+      },
+      "heating": {
+        "n_present": 26,
+        "mae_kwh": 256.19374625,
+        "bias_kwh": -232.2929094078948,
+        "median_ape_pct": 34.15877437301101,
+        "p80_ape_pct": 45.90903343182669,
+        "mae_share_pts": 12.685057789866775
+      },
+      "cooling": {
+        "n_present": 8,
+        "mae_kwh": 19.778893482569156,
+        "bias_kwh": 7.381303115714206,
+        "median_ape_pct": 47.25216781978655,
+        "p80_ape_pct": 108.95852100246908,
+        "mae_share_pts": 1.3819230418380435
+      },
+      "lighting": {
+        "n_present": 40,
+        "mae_kwh": 125.25567492695654,
+        "bias_kwh": 84.14760467313936,
+        "median_ape_pct": 211.6707048299658,
+        "p80_ape_pct": 365.06809650116656,
+        "mae_share_pts": 9.330462557980356
+      },
+      "electronics": {
+        "n_present": 40,
+        "mae_kwh": 148.56186473340716,
+        "bias_kwh": 74.3594228378857,
+        "median_ape_pct": 54.68362827527193,
+        "p80_ape_pct": 159.10265918204192,
+        "mae_share_pts": 10.584119210883477
+      }
+    },
+    "year_hourly": {
+      "always_on": {
+        "n_present": 40,
+        "mae_kwh": 39.526365698375,
+        "bias_kwh": -34.95406721004495,
+        "median_ape_pct": 10.474791753734863,
+        "p80_ape_pct": 14.308600916673297,
+        "mae_share_pts": 3.010316423118015
+      },
+      "heating": {
+        "n_present": 26,
+        "mae_kwh": 30.498386889001985,
+        "bias_kwh": 13.014920387431108,
+        "median_ape_pct": 3.6035266822929235,
+        "p80_ape_pct": 8.742387109739123,
+        "mae_share_pts": 1.7742796145211095
+      },
+      "cooling": {
+        "n_present": 8,
+        "mae_kwh": 6.207925599752039,
+        "bias_kwh": 2.59705748980652,
+        "median_ape_pct": 20.298333544470182,
+        "p80_ape_pct": 66.25127317694472,
+        "mae_share_pts": 0.35466868981595445
+      },
+      "lighting": {
+        "n_present": 40,
+        "mae_kwh": 30.651177701869464,
+        "bias_kwh": 23.72026375428292,
+        "median_ape_pct": 35.21316221959327,
+        "p80_ape_pct": 78.0107606152555,
+        "mae_share_pts": 2.196390890573976
+      },
+      "electronics": {
+        "n_present": 40,
+        "mae_kwh": 46.12480920911217,
+        "bias_kwh": -4.372556087043314,
+        "median_ape_pct": 15.574410841105301,
+        "p80_ape_pct": 37.09724655190795,
+        "mae_share_pts": 3.250097319618777
+      },
+      "_top3_savings": {
+        "median_ape_pct": 3.735919960886813,
+        "p80_ape_pct": 9.314936623869423,
+        "bias_pct": -0.4248498406539716,
+        "same_top3_share": 0.75
+      }
+    },
+    "fall_semester_15min": {
+      "always_on": {
+        "n_present": 40,
+        "mae_kwh": 18.786943837763943,
+        "bias_kwh": -2.1897664230110836,
+        "median_ape_pct": 8.894149667927035,
+        "p80_ape_pct": 12.441636744066718,
+        "mae_share_pts": 4.478844891718308
+      },
+      "heating": {
+        "n_present": 26,
+        "mae_kwh": 10.230446681181686,
+        "bias_kwh": -3.8066245042127123,
+        "median_ape_pct": 2.960797279138456,
+        "p80_ape_pct": 6.0409400090985805,
+        "mae_share_pts": 1.4309664790961092
+      },
+      "cooling": {
+        "n_present": 2,
+        "mae_kwh": 1.1912893322797304,
+        "bias_kwh": -0.4812170159137114,
+        "median_ape_pct": 37.422948745586474,
+        "p80_ape_pct": 38.180254654214345,
+        "mae_share_pts": 0.1878172654904868
+      },
+      "lighting": {
+        "n_present": 31,
+        "mae_kwh": 12.06764463356328,
+        "bias_kwh": 8.314698480227266,
+        "median_ape_pct": 12.249891769074484,
+        "p80_ape_pct": 59.98285650667846,
+        "mae_share_pts": 2.3941593786986837
+      },
+      "electronics": {
+        "n_present": 40,
+        "mae_kwh": 24.086978430208166,
+        "bias_kwh": -1.870340281938682,
+        "median_ape_pct": 20.94467234466643,
+        "p80_ape_pct": 33.922155496336266,
+        "mae_share_pts": 5.1725043721902155
+      },
+      "_top3_savings": {
+        "median_ape_pct": 5.458606054779617,
+        "p80_ape_pct": 11.359008831962823,
+        "bias_pct": -3.815541589719635,
+        "same_top3_share": 0.75
+      }
+    }
+  },
+  "year_15min_runs": [
+    {
+      "seed": 0,
+      "truth": {
+        "always_on": 534.7757458918691,
+        "heating": 494.075,
+        "cooling": 0.0,
+        "lighting": 269.84043754226894,
+        "electronics": 242.35831936765368
+      },
+      "est": {
+        "always_on": 479.382790513834,
+        "heating": 470.9250646443969,
+        "cooling": 0.0,
+        "lighting": 306.20626429957593,
+        "electronics": 283.28188054219316
+      }
+    },
+    {
+      "seed": 1,
+      "truth": {
+        "always_on": 475.3930190685737,
+        "heating": 388.44,
+        "cooling": 1.9340644314206312,
+        "lighting": 44.38029795273519,
+        "electronics": 99.86198074604229
+      },
+      "est": {
+        "always_on": 442.6603089887641,
+        "heating": 448.0511401201889,
+        "cooling": 0.0,
+        "lighting": 38.4767200127563,
+        "electronics": 81.10383087829078
+      }
+    },
+    {
+      "seed": 2,
+      "truth": {
+        "always_on": 370.7022426660271,
+        "heating": 2052.525,
+        "cooling": 0.0,
+        "lighting": 185.04320946027656,
+        "electronics": 132.58135
+      },
+      "est": {
+        "always_on": 323.3431425140112,
+        "heating": 1985.4742207560616,
+        "cooling": 0.0,
+        "lighting": 284.0638872034808,
+        "electronics": 149.2827495264462
+      }
+    },
+    {
+      "seed": 3,
+      "truth": {
+        "always_on": 388.54210336341504,
+        "heating": 1391.9,
+        "cooling": 117.68189690240703,
+        "lighting": 322.67745429811396,
+        "electronics": 402.32457247309935
+      },
+      "est": {
+        "always_on": 337.5565396825397,
+        "heating": 1647.7536219819685,
+        "cooling": 217.3550668211236,
+        "lighting": 421.1297715143678,
+        "electronics": 0.0
+      }
+    },
+    {
+      "seed": 4,
+      "truth": {
+        "always_on": 504.8153832699289,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 28.788855406692267,
+        "electronics": 70.30466666666666
+      },
+      "est": {
+        "always_on": 528.202546006539,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 4.00553870155869,
+        "electronics": 72.48291529190227
+      }
+    },
+    {
+      "seed": 5,
+      "truth": {
+        "always_on": 348.76251024534554,
+        "heating": 0.0,
+        "cooling": 14.701840891585775,
+        "lighting": 48.11949640863976,
+        "electronics": 103.45513457798039
+      },
+      "est": {
+        "always_on": 354.6666867003868,
+        "heating": 0.0,
+        "cooling": 4.689308039707271,
+        "lighting": 28.471052682920572,
+        "electronics": 124.78795257698536
+      }
+    },
+    {
+      "seed": 6,
+      "truth": {
+        "always_on": 338.4747888264235,
+        "heating": 1041.975,
+        "cooling": 0.0,
+        "lighting": 238.67292591947052,
+        "electronics": 109.19929790524904
+      },
+      "est": {
+        "always_on": 277.1318739669422,
+        "heating": 1000.6529009301537,
+        "cooling": 0.0,
+        "lighting": 341.3952307136815,
+        "electronics": 110.07299438922286
+      }
+    },
+    {
+      "seed": 7,
+      "truth": {
+        "always_on": 484.48548004115094,
+        "heating": 1901.205,
+        "cooling": 309.4266646476933,
+        "lighting": 35.358588578779795,
+        "electronics": 236.70916607188613
+      },
+      "est": {
+        "always_on": 411.67957610619476,
+        "heating": 1902.3150782818361,
+        "cooling": 305.79279871134247,
+        "lighting": 58.440661667959006,
+        "electronics": 288.17288523266745
+      }
+    },
+    {
+      "seed": 8,
+      "truth": {
+        "always_on": 312.00190583353645,
+        "heating": 717.35,
+        "cooling": 0.0,
+        "lighting": 47.35441123067142,
+        "electronics": 201.84706563012026
+      },
+      "est": {
+        "always_on": 267.28053790613717,
+        "heating": 786.7585925997237,
+        "cooling": 0.0,
+        "lighting": 50.44577360821602,
+        "electronics": 174.86909588592312
+      }
+    },
+    {
+      "seed": 9,
+      "truth": {
+        "always_on": 403.9285290685338,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 279.1959277978413,
+        "electronics": 155.8681365431602
+      },
+      "est": {
+        "always_on": 338.6367278106509,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 284.48399252047847,
+        "electronics": 214.2632796688706
+      }
+    },
+    {
+      "seed": 10,
+      "truth": {
+        "always_on": 528.6321243952317,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 108.92264926812398,
+        "electronics": 150.3221228519937
+      },
+      "est": {
+        "always_on": 476.72191340996164,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 101.89658395867224,
+        "electronics": 207.65750263136607
+      }
+    },
+    {
+      "seed": 11,
+      "truth": {
+        "always_on": 405.1174948017325,
+        "heating": 1494.855,
+        "cooling": 47.99052094103761,
+        "lighting": 26.023763623657526,
+        "electronics": 202.906422767441
+      },
+      "est": {
+        "always_on": 402.8815246491544,
+        "heating": 1599.290401201421,
+        "cooling": 15.35564735725571,
+        "lighting": 52.093018825734205,
+        "electronics": 107.43240796643468
+      }
+    },
+    {
+      "seed": 12,
+      "truth": {
+        "always_on": 314.2760237362936,
+        "heating": 679.95,
+        "cooling": 4.5197050325434125,
+        "lighting": 25.472617359449067,
+        "electronics": 240.41232562408143
+      },
+      "est": {
+        "always_on": 302.426000926784,
+        "heating": 830.9041054256177,
+        "cooling": 0.0,
+        "lighting": 42.53070579603278,
+        "electronics": 88.99418785156537
+      }
+    },
+    {
+      "seed": 13,
+      "truth": {
+        "always_on": 348.4296778597038,
+        "heating": 0.0,
+        "cooling": 123.77810496870161,
+        "lighting": 34.85086241876662,
+        "electronics": 665.7910547033462
+      },
+      "est": {
+        "always_on": 312.88458620689653,
+        "heating": 0.0,
+        "cooling": 143.08604433296586,
+        "lighting": 80.37735792886005,
+        "electronics": 634.6550115312775
+      }
+    },
+    {
+      "seed": 14,
+      "truth": {
+        "always_on": 501.4244739159603,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 223.848190607438,
+        "electronics": 107.70019692455944
+      },
+      "est": {
+        "always_on": 479.21275160403303,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 216.39226708866525,
+        "electronics": 137.87798130730175
+      }
+    },
+    {
+      "seed": 15,
+      "truth": {
+        "always_on": 457.46322207455125,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 25.879093792977,
+        "electronics": 139.9139314716137
+      },
+      "est": {
+        "always_on": 471.0670831191087,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 6.628275289245234,
+        "electronics": 144.64364159164597
+      }
+    },
+    {
+      "seed": 16,
+      "truth": {
+        "always_on": 343.75440243419945,
+        "heating": 563.775,
+        "cooling": 0.0,
+        "lighting": 76.95837381455007,
+        "electronics": 97.7649
+      },
+      "est": {
+        "always_on": 297.71084993773354,
+        "heating": 567.4247538523955,
+        "cooling": 0.0,
+        "lighting": 94.42831149182712,
+        "electronics": 124.15408471804393
+      }
+    },
+    {
+      "seed": 17,
+      "truth": {
+        "always_on": 415.3313184006282,
+        "heating": 0.0,
+        "cooling": 125.2274723360888,
+        "lighting": 266.3179206659418,
+        "electronics": 129.81923333333333
+      },
+      "est": {
+        "always_on": 360.76873921568625,
+        "heating": 0.0,
+        "cooling": 141.4139018257536,
+        "lighting": 266.43158919414776,
+        "electronics": 168.4677697644123
+      }
+    },
+    {
+      "seed": 18,
+      "truth": {
+        "always_on": 402.3188164406538,
+        "heating": 882.125,
+        "cooling": 0.0,
+        "lighting": 51.722596682424516,
+        "electronics": 109.34531666666666
+      },
+      "est": {
+        "always_on": 331.338203187251,
+        "heating": 861.8419954519061,
+        "cooling": 0.0,
+        "lighting": 55.52766985749062,
+        "electronics": 195.54113150335223
+      }
+    },
+    {
+      "seed": 19,
+      "truth": {
+        "always_on": 501.4205628280691,
+        "heating": 855.05,
+        "cooling": 76.35525227578572,
+        "lighting": 53.274341663138074,
+        "electronics": 352.53240178737605
+      },
+      "est": {
+        "always_on": 471.4405,
+        "heating": 841.6867990234965,
+        "cooling": 74.01249753565689,
+        "lighting": 79.3011813908404,
+        "electronics": 372.2170220500062
+      }
+    },
+    {
+      "seed": 20,
+      "truth": {
+        "always_on": 558.7932638350825,
+        "heating": 489.0,
+        "cooling": 0.0,
+        "lighting": 51.50787229325349,
+        "electronics": 172.44447159300452
+      },
+      "est": {
+        "always_on": 508.2738960964409,
+        "heating": 545.1395538317103,
+        "cooling": 0.0,
+        "lighting": 45.590392437985265,
+        "electronics": 171.63715763386358
+      }
+    },
+    {
+      "seed": 21,
+      "truth": {
+        "always_on": 355.61047923459085,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 47.915538049533446,
+        "electronics": 367.06931260240077
+      },
+      "est": {
+        "always_on": 346.79987698412697,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 86.7758755019471,
+        "electronics": 337.5972475139259
+      }
+    },
+    {
+      "seed": 22,
+      "truth": {
+        "always_on": 429.24850243077117,
+        "heating": 352.65,
+        "cooling": 0.0,
+        "lighting": 290.67220397403685,
+        "electronics": 191.5237056212116
+      },
+      "est": {
+        "always_on": 365.72282601351344,
+        "heating": 331.52459000941866,
+        "cooling": 0.0,
+        "lighting": 300.3528613971219,
+        "electronics": 266.4397225799461
+      }
+    },
+    {
+      "seed": 23,
+      "truth": {
+        "always_on": 392.20261690185185,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 49.289162587834895,
+        "electronics": 220.5572487196187
+      },
+      "est": {
+        "always_on": 347.95630442637764,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 41.357984649422804,
+        "electronics": 273.4207109241996
+      }
+    },
+    {
+      "seed": 24,
+      "truth": {
+        "always_on": 443.91015948702693,
+        "heating": 791.1,
+        "cooling": 0.0,
+        "lighting": 55.78534202934974,
+        "electronics": 264.79211326301
+      },
+      "est": {
+        "always_on": 457.87281006251857,
+        "heating": 794.4598121290587,
+        "cooling": 0.0,
+        "lighting": 89.23037155478099,
+        "electronics": 215.51100625364168
+      }
+    },
+    {
+      "seed": 25,
+      "truth": {
+        "always_on": 470.88475215410006,
+        "heating": 763.935,
+        "cooling": 35.38515152239608,
+        "lighting": 162.68442100679874,
+        "electronics": 135.77138333333335
+      },
+      "est": {
+        "always_on": 405.98150782608684,
+        "heating": 704.8690995278147,
+        "cooling": 44.21897209299402,
+        "lighting": 215.74590339509885,
+        "electronics": 198.1295171580055
+      }
+    },
+    {
+      "seed": 26,
+      "truth": {
+        "always_on": 389.86574243166797,
+        "heating": 390.875,
+        "cooling": 0.0,
+        "lighting": 339.21724612577844,
+        "electronics": 208.85397158038037
+      },
+      "est": {
+        "always_on": 347.61377551020405,
+        "heating": 385.1893855898426,
+        "cooling": 0.0,
+        "lighting": 313.28117882927154,
+        "electronics": 282.7386600706819
+      }
+    },
+    {
+      "seed": 27,
+      "truth": {
+        "always_on": 340.22934788703225,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 179.67864456251064,
+        "electronics": 82.94041666666666
+      },
+      "est": {
+        "always_on": 337.97870141474317,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 165.31808160575733,
+        "electronics": 100.49121697949957
+      }
+    },
+    {
+      "seed": 28,
+      "truth": {
+        "always_on": 453.24440616253656,
+        "heating": 0.0,
+        "cooling": 49.73656147378932,
+        "lighting": 48.84037034309672,
+        "electronics": 674.953418800352
+      },
+      "est": {
+        "always_on": 392.87139134524926,
+        "heating": 0.0,
+        "cooling": 79.52310135504896,
+        "lighting": 134.33576210365936,
+        "electronics": 620.8137451960424
+      }
+    },
+    {
+      "seed": 29,
+      "truth": {
+        "always_on": 423.34632199599616,
+        "heating": 1364.825,
+        "cooling": 11.538089569374687,
+        "lighting": 33.705402417666825,
+        "electronics": 66.71693333333333
+      },
+      "est": {
+        "always_on": 391.5859105145413,
+        "heating": 1395.267143837384,
+        "cooling": 1.1791202599567279,
+        "lighting": 38.437691562241625,
+        "electronics": 72.35113382587627
+      }
+    },
+    {
+      "seed": 30,
+      "truth": {
+        "always_on": 310.8022639391889,
+        "heating": 331.605,
+        "cooling": 0.0,
+        "lighting": 52.467452060244156,
+        "electronics": 459.60084513552675
+      },
+      "est": {
+        "always_on": 264.7297695431472,
+        "heating": 302.45313737908145,
+        "cooling": 0.0,
+        "lighting": 114.43496191396699,
+        "electronics": 471.81213116380434
+      }
+    },
+    {
+      "seed": 31,
+      "truth": {
+        "always_on": 451.2640486829641,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 325.0412495343604,
+        "electronics": 373.70008458169315
+      },
+      "est": {
+        "always_on": 442.28128535353534,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 365.0879342555303,
+        "electronics": 341.4437803909344
+      }
+    },
+    {
+      "seed": 32,
+      "truth": {
+        "always_on": 468.2770487139614,
+        "heating": 1035.93,
+        "cooling": 0.0,
+        "lighting": 67.67026869933491,
+        "electronics": 100.00055054410397
+      },
+      "est": {
+        "always_on": 408.25673368841547,
+        "heating": 1034.908957849977,
+        "cooling": 0.0,
+        "lighting": 105.87216987040878,
+        "electronics": 120.99613859119863
+      }
+    },
+    {
+      "seed": 33,
+      "truth": {
+        "always_on": 360.26010240269824,
+        "heating": 2198.4,
+        "cooling": 0.0,
+        "lighting": 58.20443241363522,
+        "electronics": 123.78128126166472
+      },
+      "est": {
+        "always_on": 297.0215188485264,
+        "heating": 2266.285220886026,
+        "cooling": 0.0,
+        "lighting": 103.4180008873252,
+        "electronics": 73.9492593781221
+      }
+    },
+    {
+      "seed": 34,
+      "truth": {
+        "always_on": 575.9703488809791,
+        "heating": 528.1,
+        "cooling": 0.0,
+        "lighting": 45.865782306913054,
+        "electronics": 554.7511364782868
+      },
+      "est": {
+        "always_on": 506.91889949238583,
+        "heating": 490.8916008002192,
+        "cooling": 0.0,
+        "lighting": 98.79678946787888,
+        "electronics": 607.4627102395161
+      }
+    },
+    {
+      "seed": 35,
+      "truth": {
+        "always_on": 610.2526254164978,
+        "heating": 1213.95,
+        "cooling": 9.584144817430152,
+        "lighting": 68.50707862035617,
+        "electronics": 139.44248517706168
+      },
+      "est": {
+        "always_on": 615.8565427901524,
+        "heating": 1189.250747639061,
+        "cooling": 1.6791904820660046,
+        "lighting": 72.66347989902793,
+        "electronics": 160.99903918969278
+      }
+    },
+    {
+      "seed": 36,
+      "truth": {
+        "always_on": 427.74408971505875,
+        "heating": 2166.0,
+        "cooling": 0.0,
+        "lighting": 97.53076354368446,
+        "electronics": 94.34678355359826
+      },
+      "est": {
+        "always_on": 334.8391756141948,
+        "heating": 2186.9795554295088,
+        "cooling": 0.0,
+        "lighting": 162.27186072176227,
+        "electronics": 100.55540823453447
+      }
+    },
+    {
+      "seed": 37,
+      "truth": {
+        "always_on": 406.09607114909403,
+        "heating": 0.0,
+        "cooling": 1.0429324842547232,
+        "lighting": 37.92061282585611,
+        "electronics": 315.525924554355
+      },
+      "est": {
+        "always_on": 411.3305792437651,
+        "heating": 0.0,
+        "cooling": 0.0,
+        "lighting": 47.70248882116369,
+        "electronics": 303.7069319350712
+      }
+    },
+    {
+      "seed": 38,
+      "truth": {
+        "always_on": 351.12659103261035,
+        "heating": 1121.725,
+        "cooling": 0.0,
+        "lighting": 85.23861969512824,
+        "electronics": 90.74203039019923
+      },
+      "est": {
+        "always_on": 289.6523965517241,
+        "heating": 1177.0548997088463,
+        "cooling": 0.0,
+        "lighting": 85.78885435756716,
+        "electronics": 94.40184938186246
+      }
+    },
+    {
+      "seed": 39,
+      "truth": {
+        "always_on": 498.18493245730724,
+        "heating": 625.65,
+        "cooling": 0.0,
+        "lighting": 41.7047053716395,
+        "electronics": 284.17144800031616
+      },
+      "est": {
+        "always_on": 511.8253309125355,
+        "heating": 629.1812977232079,
+        "cooling": 0.0,
+        "lighting": 81.14502815311891,
+        "electronics": 227.72434321113764
+      }
+    }
+  ]
+}

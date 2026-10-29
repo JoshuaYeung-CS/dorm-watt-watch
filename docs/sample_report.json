@@ -1,0 +1,165 @@
+{
+  "period": [
+    "2025-01-01T00",
+    "2025-12-31T23"
+  ],
+  "days": 365.0,
+  "grid": {
+    "subregion": "NYUP",
+    "kg_co2e_per_kwh": 0.11494920795315242,
+    "kg_co2e_per_kwh_nonbaseload": 0.4317110361929228,
+    "state": "NY",
+    "usd_per_kwh": 0.2926
+  },
+  "kwh_per_year": {
+    "always_on": 367.56012327506886,
+    "heating": 1098.7864543933329,
+    "cooling": 0.0,
+    "lighting": 171.3799048351508,
+    "electronics": 115.38451749644742
+  },
+  "interval_90_kwh_per_year": {
+    "always_on": [
+      362.99063391336665,
+      372.7753519984731
+    ],
+    "heating": [
+      1053.7762879620934,
+      1124.7471012930002
+    ],
+    "cooling": [
+      0.0,
+      0.0
+    ],
+    "lighting": [
+      102.82794290109048,
+      239.9318667692111
+    ],
+    "electronics": [
+      96.96969359482756,
+      135.28730931969488
+    ]
+  },
+  "baseload_w": 42.20423183072676,
+  "away_days": 47,
+  "r2_hourly": 0.4489965444106526,
+  "r2_daily": 0.8876905504640134,
+  "semester": [
+    "2025-08-25T00",
+    "2025-12-20T00"
+  ],
+  "savings": [
+    {
+      "key": "led",
+      "title": "Swap incandescent and halogen bulbs for LEDs",
+      "kwh_year": 128.5349286263631,
+      "kwh_semester": 68.31115004719825,
+      "usd_year": 37.609320116073846,
+      "usd_semester": 19.98784250381021,
+      "kg_year": 14.774988239915414,
+      "kg_semester": 7.85231259229439,
+      "kg_year_marginal": 55.48994722427059,
+      "method": "Estimated lighting kWh x 100% incandescent share x 75%. DOE: residential LEDs use at least 75% less energy than incandescent lighting.",
+      "sources": [
+        "doe_led"
+      ],
+      "assumptions": []
+    },
+    {
+      "key": "heater_setback",
+      "title": "Put the space heater on a thermostat timer",
+      "kwh_year": 109.8786454393333,
+      "kwh_semester": 43.09365232855173,
+      "usd_year": 32.150491655548926,
+      "usd_semester": 12.609202671334236,
+      "kg_year": 12.630463264216626,
+      "kg_semester": 4.953581202975544,
+      "kg_year_marginal": 47.435823878089344,
+      "method": "Estimated space-heating kWh x 10%. DOE: turning a thermostat back 7-10 F for 8 hours a day saves as much as 10% a year on heating.",
+      "sources": [
+        "doe_thermostat"
+      ],
+      "assumptions": [
+        "DOE's figure is for a home thermostat; applying it to a space heater assumes the same setback."
+      ]
+    },
+    {
+      "key": "pc_sleep",
+      "title": "Let the computer sleep instead of idling",
+      "kwh_year": 57.69225874822371,
+      "kwh_semester": 22.35265013197033,
+      "usd_year": 16.880754909730257,
+      "usd_semester": 6.540385428614519,
+      "kg_year": 6.6316794481366435,
+      "kg_semester": 2.569419428323917,
+      "kg_year_marginal": 24.906384804505873,
+      "method": "6 idle hours/day x (60 W idle - 1.6 W sleep) x days at home. Sleep draw is the median of ENERGY STAR certified desktops.",
+      "sources": [
+        "es_computers",
+        "es_computers_page"
+      ],
+      "assumptions": [
+        "Idle draw of 60 W assumed; a plug meter gives your real figure.",
+        "Capped at half of the measured electronics load so it cannot exceed what the meter saw."
+      ]
+    },
+    {
+      "key": "fridge_energy_star",
+      "title": "Choose an ENERGY STAR mini-fridge next time",
+      "kwh_year": 56.0,
+      "kwh_semester": 17.95068493150685,
+      "usd_year": 16.3856,
+      "usd_semester": 5.252370410958904,
+      "kg_year": 6.437155645376535,
+      "kg_semester": 2.0634170150933,
+      "kg_year_marginal": 24.175818026803675,
+      "method": "Fridge kWh/yr (284) - ENERGY STAR median for compact fridges (228 kWh/yr).",
+      "sources": [
+        "es_fridge"
+      ],
+      "assumptions": [
+        "Fridge share of the always-on load is a prior (see Method)."
+      ]
+    },
+    {
+      "key": "fridge_breaks",
+      "title": "Empty and unplug the mini-fridge over breaks",
+      "kwh_year": 36.56986301369863,
+      "kwh_semester": 3.1123287671232878,
+      "usd_year": 10.70034191780822,
+      "usd_semester": 0.9106673972602741,
+      "kg_year": 4.203676788379941,
+      "kg_semester": 0.35775972667063327,
+      "kg_year_marginal": 15.787613455077077,
+      "method": "Fridge kWh/day (0.78) x away days the meter shows.",
+      "sources": [
+        "es_fridge"
+      ],
+      "assumptions": [
+        "Fridge share of the always-on load is a prior (see Method)."
+      ]
+    },
+    {
+      "key": "standby_strip",
+      "title": "Switch off standby loads at a power strip",
+      "kwh_year": 20.890030818767215,
+      "kwh_semester": 6.6962564542349705,
+      "usd_year": 6.112423017571288,
+      "usd_semester": 1.9593246385091525,
+      "kg_year": 2.4012924967342353,
+      "kg_semester": 0.7697293756654947,
+      "kg_year_marginal": 9.018456850872086,
+      "method": "Always-on kWh not attributed to the fridge (84 kWh/yr) x 25%.",
+      "sources": [],
+      "assumptions": [
+        "The 25% cut is an assumption, not a sourced figure."
+      ]
+    }
+  ],
+  "top3": [
+    "led",
+    "heater_setback",
+    "pc_sleep"
+  ],
+  "warnings": []
+}
