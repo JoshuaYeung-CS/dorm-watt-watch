@@ -8,3 +8,7 @@ report.json
 build/
 dist/
 .DS_Store
+
+# Local working notes
+HANDOFF.md
+SUBMISSION.md
