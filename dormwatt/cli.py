@@ -12,7 +12,7 @@ import numpy as np
 from . import disaggregate as dg
 from .factors import resolve
 from .io import read_temps, read_usage, write_green_button_csv
-from .recommend import plan as make_plan
+from .recommend import category_errors, plan as make_plan, with_totals
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
@@ -43,13 +43,29 @@ def run_report(csv_path, checklist_path=None, temps_path=None, out="report.html"
     temps = read_temps(temps_path, usage.hours) if temps_path else None
     est = dg.estimate(usage.hours, usage.hourly_kwh, cl, temps, n_boot=n_boot)
     g = resolve(cl.zip, cl.subregion, cl.state)
-    p = make_plan(est, cl, g)
     val = load_validation(VALIDATION_JSON)
+    p = make_plan(est, cl, g, category_errors(val))
     Path(out).write_text(build_html(est, p, cl, g, title_note, val, chart_dir))
     summary = to_json(est, p, g)
     if json_out:
         Path(json_out).write_text(json.dumps(summary, indent=2, default=float) + "\n")
     return est, p, g, summary
+
+
+def check_sample() -> dict:
+    """Feed the sample's true category kWh (data/sample_truth.json) through the same savings rules
+    and compare the top-three saving with the one estimated from the meter."""
+    usage = read_usage(SAMPLE_CSV)
+    cl = _checklist(str(SAMPLE_CHECKLIST), None)
+    est = dg.estimate(usage.hours, usage.hourly_kwh, cl, read_temps(SAMPLE_TEMPS, usage.hours), n_boot=0)
+    g = resolve(cl.zip, cl.subregion, cl.state)
+    truth = json.loads((DATA / "sample_truth.json").read_text())["kwh"]
+    p_est, p_true = make_plan(est, cl, g), make_plan(with_totals(est, truth), cl, g)
+    est_kwh = sum(s.kwh_year for s in p_est.top)
+    true_kwh = sum(s.kwh_year for s in p_true.top)
+    return {"estimated_top3_kwh_year": est_kwh, "true_top3_kwh_year": true_kwh,
+            "error_pct": (est_kwh - true_kwh) / true_kwh * 100,
+            "same_top3": sorted(s.key for s in p_est.top) == sorted(s.key for s in p_true.top)}
 
 
 def make_sample() -> None:
@@ -87,6 +103,7 @@ def main(argv: list[str] | None = None) -> int:
     v = sub.add_parser("validate", help="score the estimator on synthetic households")
     v.add_argument("--n", type=int, default=40)
     v.add_argument("--out", default=str(VALIDATION_JSON))
+    sub.add_parser("check-sample", help="compare the sample's estimated saving with its true saving")
     sub.add_parser("sample", help="rebuild data/sample_greenbutton.csv")
     sub.add_parser("demo", help="rebuild docs/index.html and docs/*.png from the sample")
     a = ap.parse_args(argv)
@@ -104,8 +121,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {dg.LABELS[c]:45s} {est.totals[c] * f:7.0f} kWh/yr  [{lo * f:.0f}-{hi * f:.0f}]")
         print("Top 3:")
         for i, x in enumerate(p.top, 1):
-            print(f"  {i}. {x.title}: {x.kwh_year:.0f} kWh/yr, ${x.usd_year:.0f}/yr, {x.kg_year:.1f} kg CO2e/yr "
-                  f"(semester {x.kwh_semester:.0f} kWh)")
+            print(f"  {i}. {x.title}: {x.kwh_year:.0f} kWh/yr [{x.kwh_year_low:.0f}-{x.kwh_year_high:.0f}], "
+                  f"${x.usd_year:.0f}/yr, {x.kg_year:.1f} kg CO2e/yr (semester {x.kwh_semester:.0f} kWh)")
+        lo, mid, hi = p.top_totals()["year"]
+        print(f"Top 3 together: {mid:.0f} kWh/yr (range {lo:.0f}-{hi:.0f}), ${mid * g.price_usd_per_kwh:.0f} "
+              f"(${lo * g.price_usd_per_kwh:.0f}-{hi * g.price_usd_per_kwh:.0f}), {mid * g.kg_co2e_per_kwh:.0f} kg CO2e "
+              f"({lo * g.kg_co2e_per_kwh:.0f}-{hi * g.kg_co2e_per_kwh:.0f}; "
+              f"{mid * g.kg_co2e_per_kwh_nonbaseload:.0f} at the non-baseload rate)")
         print(f"wrote {a.out}")
     elif a.cmd == "validate":
         from .validate import run
@@ -123,6 +145,11 @@ def main(argv: list[str] | None = None) -> int:
                     print(f"  {c:12s} n={m['n_present']:2d} median |err| {m['median_ape_pct']:5.1f}%  "
                           f"p80 {m['p80_ape_pct']:5.1f}%  MAE {m['mae_kwh']:6.1f} kWh  bias {m['bias_kwh']:+6.1f}{cov}")
         print(f"wrote {a.out}")
+    elif a.cmd == "check-sample":
+        r = check_sample()
+        print(f"Sample household, top-three saving: estimated {r['estimated_top3_kwh_year']:.0f} kWh/yr, "
+              f"from its true category kWh {r['true_top3_kwh_year']:.0f} kWh/yr ({r['error_pct']:+.1f}%); "
+              f"same three changes on top: {'yes' if r['same_top3'] else 'no'}")
     elif a.cmd == "sample":
         make_sample()
     elif a.cmd == "demo":

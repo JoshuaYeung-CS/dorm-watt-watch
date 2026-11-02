@@ -184,6 +184,12 @@ def build_html(est: Estimate, plan: Plan, cl: Checklist, g: GridFactors, title_n
     tus = sum(s.usd_semester for s in top)
     tgs = sum(s.kg_semester for s in top)
     s0, s1 = plan.semester
+    rng = plan.top_totals()
+    (yl, _, yh), (sl, _, sh) = rng["year"], rng["semester"]
+    price, kgk = g.price_usd_per_kwh, g.kg_co2e_per_kwh
+
+    def span(lo, hi, unit=""):
+        return f"range {_fmt(lo)}&ndash;{_fmt(hi)}{unit}"
 
     out = [f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>"
            f"<title>Dorm Watt Watch report</title><style>{CSS}</style></head><body><main>"]
@@ -197,9 +203,20 @@ def build_html(est: Estimate, plan: Plan, cl: Checklist, g: GridFactors, title_n
                f"<div class='card'><div class='muted small'>Electricity per year</div><div class='big'>{_fmt(total_y)} kWh</div>"
                f"<div class='small'>${_fmt(total_y * g.price_usd_per_kwh)} &middot; {_fmt(total_y * g.kg_co2e_per_kwh)} kg CO2e</div></div>"
                f"<div class='card win'><div class='muted small'>Top 3 changes save, per year</div><div class='big'>{_fmt(tk)} kWh</div>"
-               f"<div class='small'>${_fmt(tu)} &middot; {_fmt(tg)} kg CO2e ({tk / total_y * 100:.0f}% of your use)</div></div>"
+               f"<div class='small'>${_fmt(tu)} &middot; {_fmt(tg)} kg CO2e ({tk / total_y * 100:.0f}% of your use)"
+               + (f"<br>{span(yl, yh, ' kWh')} &middot; ${_fmt(yl * price)}&ndash;{_fmt(yh * price)} &middot; "
+                  f"{_fmt(yl * kgk)}&ndash;{_fmt(yh * kgk)} kg" if plan.ranged else "") + "</div></div>"
                f"<div class='card win'><div class='muted small'>Per semester ({e(str(s0)[:10])} to {e(str(s1 - 1)[:10])})</div><div class='big'>{_fmt(tks)} kWh</div>"
-               f"<div class='small'>${_fmt(tus)} &middot; {_fmt(tgs)} kg CO2e</div></div></div>")
+               f"<div class='small'>${_fmt(tus)} &middot; {_fmt(tgs)} kg CO2e"
+               + (f"<br>{span(sl, sh, ' kWh')}" if plan.ranged else "") + "</div></div></div>")
+    if plan.ranged:
+        out.append("<p class='small'><strong>How sure is the saving?</strong> The range moves the two uncertain inputs "
+                   "together. Factors: DOE's thermostat saving is a ceiling (&ldquo;as much as 10%&rdquo;), so the low end "
+                   "assumes 5%; the low PC idle draw is the ENERGY STAR median for certified desktops; DOE's LED figure is a "
+                   "floor (&ldquo;at least 75%&rdquo;), so nothing higher is used. Estimate: in the validation run, 4 in 5 "
+                   f"households' top-three saving was within {plan.top_error * 100:.0f}% of the truth, so the range adds "
+                   f"&plusmn;{plan.top_error * 100:.0f}%. It is a bounding range, not a confidence interval; each option's "
+                   "own range is in the table below.</p>")
 
     out.append("<h2>Your three biggest wins</h2><div class='cards'>")
     for i, s in enumerate(top, 1):
@@ -236,10 +253,11 @@ def build_html(est: Estimate, plan: Plan, cl: Checklist, g: GridFactors, title_n
 
     out.append("<h2>Every option, ranked</h2>"
                f"<figure><img src='{img_save}' alt='Bar chart of yearly kWh saved by each option; values in the table below.'></figure>"
-               "<div class='tablewrap'><table><tr><th>Change</th><th>kWh/yr</th><th>$/yr</th><th>kg CO2e/yr</th><th>kWh this semester</th><th>How it is calculated</th></tr>")
+               "<div class='tablewrap'><table><tr><th>Change</th><th>kWh/yr</th><th>Range, kWh/yr</th><th>$/yr</th><th>kg CO2e/yr</th><th>kWh this semester</th><th>How it is calculated</th></tr>")
     for s in plan.savings:
         src = ", ".join(SOURCES[k]["publisher"].replace("U.S. ", "") for k in s.sources) or "assumption"
         out.append(f"<tr><td>{e(s.title)}{'<span class=badge>top 3</span>' if s in top else ''}</td><td class='n'>{_fmt(s.kwh_year)}</td>"
+                   f"<td class='n'>{_fmt(s.kwh_year_low)}&ndash;{_fmt(s.kwh_year_high)}</td>"
                    f"<td class='n'>${_fmt(s.usd_year)}</td><td class='n'>{_fmt(s.kg_year)}</td><td class='n'>{_fmt(s.kwh_semester)}</td>"
                    f"<td class='small'>{e(s.method)} <span class='muted'>[{e(src)}]</span>"
                    + "".join(f"<br><em>Assumption:</em> {e(a)}" for a in s.assumptions) + "</td></tr>")
@@ -345,9 +363,12 @@ def to_json(est: Estimate, plan: Plan, g: GridFactors) -> dict:
         "r2_hourly": est.r2_hourly, "r2_daily": est.r2_daily,
         "semester": [str(plan.semester[0]), str(plan.semester[1])],
         "savings": [{k: getattr(s, k) for k in ("key", "title", "kwh_year", "kwh_semester", "usd_year", "usd_semester",
-                                                 "kg_year", "kg_semester", "kg_year_marginal", "method", "sources", "assumptions")}
+                                                 "kg_year", "kg_semester", "kg_year_marginal", "kwh_year_low", "kwh_year_high",
+                                                 "kwh_semester_low", "kwh_semester_high", "method", "sources", "assumptions")}
                     for s in plan.savings],
         "top3": [s.key for s in plan.top],
+        "top3_kwh_year": dict(zip(("low", "central", "high"), plan.top_totals()["year"])),
+        "top3_kwh_semester": dict(zip(("low", "central", "high"), plan.top_totals()["semester"])),
         "warnings": est.warnings,
     }
 

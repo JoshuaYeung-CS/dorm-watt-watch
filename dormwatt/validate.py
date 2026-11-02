@@ -7,12 +7,10 @@ from pathlib import Path
 
 import numpy as np
 
-import copy
-
 from . import disaggregate as dg
 from . import synth
 from .factors import resolve
-from .recommend import plan as make_plan
+from .recommend import plan as make_plan, with_totals
 from .io import read_temps, to_hourly
 
 DATA = Path(__file__).resolve().parent.parent / "data"
@@ -40,11 +38,7 @@ def run_one(seed: int, temps: np.ndarray, interval: int = 15, window: tuple | No
     # Same recommendation engine fed with the true category totals: how far off is the saving?
     g = resolve()
     p_est = make_plan(est, hh.checklist, g)
-    true_est = copy.copy(est)
-    true_est.totals = dict(truth)
-    true_est.components = {c: est.components[c] * (truth[c] / est.totals[c]) if est.totals[c] > 0 else est.components[c]
-                           for c in est.components}
-    p_true = make_plan(true_est, hh.checklist, g)
+    p_true = make_plan(with_totals(est, truth), hh.checklist, g)
     true_by_key = {s.key: s.kwh_year for s in p_true.savings}
     top3_est = sum(s.kwh_year for s in p_est.top)
     top3_true = sum(true_by_key.get(s.key, 0.0) for s in p_est.top)

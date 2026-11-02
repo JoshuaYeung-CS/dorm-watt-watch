@@ -37,7 +37,7 @@ SOURCES = {
         "url": "https://data.energystar.gov/resource/p5st-her9.json",
     },
     "es_computers": {
-        "title": "ENERGY STAR Certified Computers V9.0 dataset (desktops: sleep-mode watts)",
+        "title": "ENERGY STAR Certified Computers V9.0 dataset (desktops: sleep-mode and short-idle watts)",
         "publisher": "U.S. EPA ENERGY STAR",
         "vintage": "Dataset as of 2026-10-28 (307 desktop models)",
         "url": "https://data.energystar.gov/resource/rxdj-2c88.json",

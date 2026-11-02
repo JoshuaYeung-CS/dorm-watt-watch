@@ -59,6 +59,10 @@
       "kg_year": 14.774988239915414,
       "kg_semester": 7.85231259229439,
       "kg_year_marginal": 55.48994722427059,
+      "kwh_year_low": 27.808723091665527,
+      "kwh_year_high": 229.26113416106068,
+      "kwh_semester_low": 14.77921897212712,
+      "kwh_semester_high": 121.8430811222694,
       "method": "Estimated lighting kWh x 100% incandescent share x 75%. DOE: residential LEDs use at least 75% less energy than incandescent lighting.",
       "sources": [
         "doe_led"
@@ -75,12 +79,17 @@
       "kg_year": 12.630463264216626,
       "kg_semester": 4.953581202975544,
       "kg_year_marginal": 47.435823878089344,
+      "kwh_year_low": 50.10952947647058,
+      "kwh_year_high": 119.53823192572543,
+      "kwh_semester_low": 19.652614327126894,
+      "kwh_semester_high": 46.882076002849665,
       "method": "Estimated space-heating kWh x 10%. DOE: turning a thermostat back 7-10 F for 8 hours a day saves as much as 10% a year on heating.",
       "sources": [
         "doe_thermostat"
       ],
       "assumptions": [
-        "DOE's figure is for a home thermostat; applying it to a space heater assumes the same setback."
+        "DOE's figure is for a home thermostat; applying it to a space heater assumes the same setback.",
+        "DOE's 10% is a ceiling (\"as much as\"); the low end of the range assumes 5%."
       ]
     },
     {
@@ -93,13 +102,17 @@
       "kg_year": 6.6316794481366435,
       "kg_semester": 2.569419428323917,
       "kg_year_marginal": 24.906384804505873,
+      "kwh_year_low": 16.9812,
+      "kwh_year_high": 79.3844886867432,
+      "kwh_semester_low": 6.0342,
+      "kwh_semester_high": 30.757223586340537,
       "method": "6 idle hours/day x (60 W idle - 1.6 W sleep) x days at home. Sleep draw is the median of ENERGY STAR certified desktops.",
       "sources": [
         "es_computers",
         "es_computers_page"
       ],
       "assumptions": [
-        "Idle draw of 60 W assumed; a plug meter gives your real figure.",
+        "Idle draw of 60 W assumed; a plug meter gives your real figure. The low end of the range uses 10.5 W, the median idle draw of ENERGY STAR certified desktops.",
         "Capped at half of the measured electronics load so it cannot exceed what the meter saw."
       ]
     },
@@ -113,6 +126,10 @@
       "kg_year": 6.437155645376535,
       "kg_semester": 2.0634170150933,
       "kg_year_marginal": 24.175818026803675,
+      "kwh_year_low": 22.516723313492918,
+      "kwh_year_high": 56.0,
+      "kwh_semester_low": 7.217689390900469,
+      "kwh_semester_high": 17.95068493150685,
       "method": "Fridge kWh/yr (284) - ENERGY STAR median for compact fridges (228 kWh/yr).",
       "sources": [
         "es_fridge"
@@ -131,6 +148,10 @@
       "kg_year": 4.203676788379941,
       "kg_semester": 0.35775972667063327,
       "kg_year_marginal": 15.787613455077077,
+      "kwh_year_low": 32.25831779653196,
+      "kwh_year_high": 36.56986301369863,
+      "kwh_semester_low": 2.7453887486410182,
+      "kwh_semester_high": 3.1123287671232878,
       "method": "Fridge kWh/day (0.78) x away days the meter shows.",
       "sources": [
         "es_fridge"
@@ -149,6 +170,10 @@
       "kg_year": 2.4012924967342353,
       "kg_semester": 0.7697293756654947,
       "kg_year_marginal": 9.018456850872086,
+      "kwh_year_low": 15.657295207093306,
+      "kwh_year_high": 34.493585602067895,
+      "kwh_semester_low": 5.018913806109361,
+      "kwh_semester_high": 11.056847987512175,
       "method": "Always-on kWh not attributed to the fridge (84 kWh/yr) x 25%.",
       "sources": [],
       "assumptions": [
@@ -161,5 +186,15 @@
     "heater_setback",
     "pc_sleep"
   ],
+  "top3_kwh_year": {
+    "low": 181.7365668522396,
+    "central": 296.1058328139201,
+    "high": 323.7567190590304
+  },
+  "top3_kwh_semester": {
+    "low": 86.93759523945455,
+    "central": 133.7574525077203,
+    "high": 146.24795993399903
+  },
   "warnings": []
 }

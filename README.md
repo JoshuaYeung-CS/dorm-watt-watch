@@ -6,8 +6,12 @@ where the energy goes (space heater, always-on load, lighting, electronics), and
 changes that save the most **kWh, dollars and kg CO2e per semester and per year**. Every number
 comes with its method and a source.
 
-The demo report from the shipped sample is [docs/index.html](docs/index.html). It opens straight from
-disk, no server needed.
+**Live demo report: <https://joshuayeung-cs.github.io/dorm-watt-watch/>** (built from the shipped
+sample, [docs/index.html](docs/index.html); it also opens straight from disk, no server needed).
+
+For the sample household the top three changes save **296 kWh, $87 and 34 kg CO2e a year**
+(17% of its electricity), with a stated range of **182-324 kWh, $53-95 and 21-37 kg** that
+covers both the estimate's tested error and the uncertainty in the published saving factors.
 
 ![Where the sample household's electricity goes](docs/breakdown.png)
 
@@ -18,7 +22,7 @@ python3 -m venv .venv && . .venv/bin/activate
 pip install -r requirements.txt
 python -m dormwatt report data/sample_greenbutton.csv --checklist data/sample_checklist.json --out report.html
 open report.html            # or double-click it
-pytest -q                   # 19 tests
+pytest -q                   # about 15 seconds
 ```
 
 On the sample (one synthetic year, 15-minute readings, Ithaca NY), the run prints:
@@ -31,9 +35,10 @@ On the sample (one synthetic year, 15-minute readings, Ithaca NY), the run print
   Lighting                                          171 kWh/yr  [103-240]
   Electronics, cooking and other plug loads         115 kWh/yr  [97-135]
 Top 3:
-  1. Swap incandescent and halogen bulbs for LEDs: 129 kWh/yr, $38/yr, 14.8 kg CO2e/yr (semester 68 kWh)
-  2. Put the space heater on a thermostat timer: 110 kWh/yr, $32/yr, 12.6 kg CO2e/yr (semester 43 kWh)
-  3. Let the computer sleep instead of idling: 58 kWh/yr, $17/yr, 6.6 kg CO2e/yr (semester 22 kWh)
+  1. Swap incandescent and halogen bulbs for LEDs: 129 kWh/yr [28-229], $38/yr, 14.8 kg CO2e/yr (semester 68 kWh)
+  2. Put the space heater on a thermostat timer: 110 kWh/yr [50-120], $32/yr, 12.6 kg CO2e/yr (semester 43 kWh)
+  3. Let the computer sleep instead of idling: 58 kWh/yr [17-79], $17/yr, 6.6 kg CO2e/yr (semester 22 kWh)
+Top 3 together: 296 kWh/yr (range 182-324), $87 ($53-95), 34 kg CO2e (21-37; 128 at the non-baseload rate)
 ```
 
 Your own data:
@@ -44,6 +49,7 @@ python -m dormwatt report my_usage.csv --checklist my_checklist.json --temps my_
 ```
 
 Other commands: `python -m dormwatt validate --n 40` (re-run the accuracy test),
+`python -m dormwatt check-sample` (the sample's estimated saving against its true saving),
 `python -m dormwatt demo` (rebuild `docs/`), `python -m dormwatt sample` (rebuild the sample).
 
 ### Inputs
@@ -79,16 +85,31 @@ Green Shift Hacks judges on how clearly a project reduces waste, emissions or re
 Dorm Watt Watch turns "save energy" into three specific actions for one specific household, each
 with a number in kWh, dollars and kg CO2e, and shows the arithmetic:
 
-| Saving for the sample household (Ithaca, NYUP grid) | per year | per fall semester |
-|---|---|---|
-| Electricity | **296 kWh** (17% of its 1,753 kWh) | 134 kWh |
-| Money at 29.26 c/kWh (EIA, NY) | **$87** | $39 |
-| CO2e, eGRID average rate (0.115 kg/kWh) | **34 kg** | 15 kg |
-| CO2e, eGRID non-baseload rate (0.432 kg/kWh) | 128 kg | 58 kg |
+| Saving for the sample household (Ithaca, NYUP grid) | per year | range | per fall semester | range |
+|---|---|---|---|---|
+| Electricity | **296 kWh** (17% of its 1,753 kWh) | 182-324 kWh | 134 kWh | 87-146 kWh |
+| Money at 29.26 c/kWh (EIA, NY) | **$87** | $53-95 | $39 | $25-43 |
+| CO2e, eGRID average rate (0.115 kg/kWh) | **34 kg** | 21-37 kg | 15 kg | 10-17 kg |
+| CO2e, eGRID non-baseload rate (0.432 kg/kWh) | 128 kg | 78-140 kg | 58 kg | 38-63 kg |
 
-Is the saving right? I fed the sample's *true* category energy (the simulator knows it) into the same
-rules: they give 308 kWh/yr against the 296 estimated (4% apart), and the same three changes come out on
-top. Across 40 test households the estimated top-three saving was off by a median 4% (80th percentile 9%).
+**How sure is the saving?** Two things are uncertain, and the range moves both:
+
+1. *The saving factors.* DOE says a thermostat setback saves "as much as 10%", a ceiling, so the low
+   end assumes 5% (labelled an assumption). The PC idle draw is an assumed 60 W unless you measure it;
+   the low end uses 10.5 W, the median idle draw of 307 ENERGY STAR certified desktops. DOE says LEDs
+   use "at least 75%" less, a floor, so nothing above 75% is used anywhere.
+2. *The estimate itself.* Across 40 simulated households, 4 in 5 estimated top-three savings were
+   within 9% of the true saving (median 4%), so the range adds ±9%.
+
+The range is a bound, not a confidence interval. Each option also has its own range (the bracket in
+the output above, and a column in the report), built from that category's 80th-percentile error,
+which is wide for lighting (78%). Summing those per-option extremes would assume every category is
+wrong in the same direction, which the 40-household test shows does not happen.
+
+Is the saving right for the sample? `python -m dormwatt check-sample` feeds the sample's *true*
+category energy (the simulator knows it) into the same rules: 308 kWh/yr against the 296 estimated
+(3.9% apart), and the same three changes come out on top. Across all 40 test households the same
+three changes came out on top 75% of the time.
 
 The same 296 kWh avoids more CO2 on a dirtier grid: 128 kg in RFC West (Ohio) and 175 kg in
 SERC Midwest (Missouri), from the same eGRID table. Upstate New York's grid is mostly hydro and
@@ -155,7 +176,7 @@ Median absolute error per category, full year, 15-minute data (households that h
 | Electronics + other (n=40) | **19%** | 38% | 47 kWh | 21% | 55% |
 | Lighting (n=40) | **32%** | 78% | 31 kWh | 12% | 212% |
 | Air conditioning (n=8) | 20% | 65% | 6 kWh | 37% (n=2) | 47% |
-| **Top-three saving** | **4%** | 9% | | 6% | |
+| **Top-three saving** | **4%** | 9% | | 5% | |
 
 ![Estimated vs true energy for 40 synthetic households](docs/validation.png)
 
@@ -185,8 +206,10 @@ truth in [data/sample_truth.json](data/sample_truth.json): always-on 368 vs 432 
   on-share and the 50 Wh "someone is up" threshold are assumptions.
 - The fridge/standby split inside the always-on load is a prior from the ENERGY STAR compact fridge
   data (federal-standard median 284 kWh/yr, capped at 80% of the always-on load), not a measurement.
-- Applying DOE's 10% thermostat setback figure to a space heater, the 25% standby cut and the 60 W PC
-  idle default are assumptions and are labelled as such in the report.
+- Applying DOE's 10% thermostat setback figure to a space heater, the 5% low end of the setback
+  range, the 25% standby cut and the 60 W PC idle default are assumptions and are labelled as such
+  in the report. DOE's 10% is a ceiling, so the central heater saving is an optimistic figure; the
+  range shows how far it can fall.
 - Accuracy was measured on simulated households, not labelled real homes.
 - CO2 uses annual-average eGRID2023 rates, not hour-by-hour grid intensity. Price is the state
   average from EIA, not your tariff. Per-year figures scale the data period to 365 days.
@@ -203,7 +226,8 @@ All fetched with curl on 2026-10-28; `scripts/fetch_sources.sh` re-downloads the
 | ZIP to eGRID subregion | 41,588 ZIPs | same Power Profiler ZIP tool |
 | Residential price, NY | 29.26 c/kWh (all states in `data/factors/eia_residential_price.csv`) | EIA Electric Power Monthly Table 5.6.B, year-to-date through August 2026: https://www.eia.gov/electricity/monthly/epm_table_grapher.php?t=epmt_5_6_b |
 | Compact fridge energy | ENERGY STAR median 228 kWh/yr; federal-standard median 284 kWh/yr (914 models, 2.5-4.5 cu ft) | ENERGY STAR Certified Residential Refrigerators: https://data.energystar.gov/resource/p5st-her9.json |
-| Desktop sleep power | 1.6 W median (302 models) | ENERGY STAR Certified Computers V9.0: https://data.energystar.gov/resource/rxdj-2c88.json |
+| Desktop sleep power | 1.6 W median (302 models that list it) | ENERGY STAR Certified Computers V9.0: https://data.energystar.gov/resource/rxdj-2c88.json |
+| Desktop idle power (low end of the PC range) | 10.5 W median short idle (307 models) | same dataset |
 | Computer sleep defaults | display 15 min, system 30 min | https://www.energystar.gov/products/computers |
 | LED vs incandescent | at least 75% less energy | DOE Energy Saver, archived 2025-06-02 (live page now 404): https://web.archive.org/web/20250602190837/https://www.energy.gov/energysaver/led-lighting |
 | Thermostat setback | as much as 10% a year for 7-10 F, 8 h/day | DOE Energy Saver, archived 2022-01-27 (live page now 404): https://web.archive.org/web/20220127160056/https://www.energy.gov/energysaver/thermostats |

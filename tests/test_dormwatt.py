@@ -7,10 +7,10 @@ import pytest
 
 from dormwatt import disaggregate as dg
 from dormwatt import synth
-from dormwatt.cli import SAMPLE_CHECKLIST, SAMPLE_CSV, SAMPLE_TEMPS, main
+from dormwatt.cli import SAMPLE_CHECKLIST, SAMPLE_CSV, SAMPLE_TEMPS, check_sample, main
 from dormwatt.factors import LB_TO_KG, energystar, resolve
 from dormwatt.io import read_usage, read_usage_text, to_hourly
-from dormwatt.recommend import plan
+from dormwatt.recommend import HEATER_SETBACK, HEATER_SETBACK_LOW, category_errors, plan
 from dormwatt.solar import sun_elevation_deg
 from dormwatt.validate import YEAR_HOURS, load_year_temps, run_one, score
 
@@ -222,5 +222,67 @@ def test_cli_report_end_to_end(tmp_path):
     assert "Your three biggest wins" in h and "data:image/png;base64," in h and "eGRID" in h
     d = json.loads(js.read_text())
     assert len(d["top3"]) == 3
+    t3 = d["top3_kwh_year"]
+    assert t3["low"] < t3["central"] < t3["high"]
+    assert "How sure is the saving?" in h
     truth = json.loads((ROOT / "data" / "sample_truth.json").read_text())["kwh"]
     assert d["kwh_per_year"]["heating"] == pytest.approx(truth["heating"], rel=0.15)
+
+
+# ---------- sensitivity range ----------
+
+def _validation():
+    return json.loads((ROOT / "docs" / "validation.json").read_text())
+
+
+def test_category_errors_come_from_the_validation_run():
+    err = category_errors(_validation())
+    st = _validation()["settings"]["year_15min"]
+    assert err["heating"] == pytest.approx(st["heating"]["p80_ape_pct"] / 100)
+    assert err["lighting"] == pytest.approx(st["lighting"]["p80_ape_pct"] / 100)
+    assert err["_top3"] == pytest.approx(st["_top3_savings"]["p80_ape_pct"] / 100)
+    assert 0.05 < err["_top3"] < 0.15
+    assert category_errors(None) is None and category_errors({"settings": {}}) is None
+
+
+def test_ranges_bracket_the_central_saving():
+    hours, y, temps, _ = _toy()
+    cl = dg.Checklist(space_heater=True, lighting="incandescent", bulbs=4, desktop_pc=True, pc_left_on_hours=4)
+    est = dg.estimate(hours, y, cl, temps, n_boot=0)
+    g = resolve()
+    err = category_errors(_validation())
+    p = plan(est, cl, g, err)
+    f = 365 / est.days
+    by = {s.key: s for s in p.savings}
+    h = est.totals["heating"] * f
+    assert by["heater_setback"].kwh_year_low == pytest.approx(h * (1 - err["heating"]) * HEATER_SETBACK_LOW)
+    assert by["heater_setback"].kwh_year_high == pytest.approx(h * (1 + err["heating"]) * HEATER_SETBACK)
+    for s in p.savings:
+        assert s.kwh_year_low <= s.kwh_year <= s.kwh_year_high
+        assert s.kwh_semester_low <= s.kwh_semester <= s.kwh_semester_high
+    lo, mid, hi = p.top_totals()["year"]
+    assert lo < mid < hi and hi == pytest.approx(mid * (1 + err["_top3"]))
+    # Without validation errors there is no range.
+    q = plan(est, cl, g)
+    assert not q.ranged and all(s.kwh_year_low == s.kwh_year == s.kwh_year_high for s in q.savings)
+
+
+def test_pc_range_low_end_uses_energy_star_idle_only_when_unmeasured():
+    hours, y, temps, _ = _toy()
+    g = resolve()
+    err = {k: 0.0 for k in ("always_on", "heating", "cooling", "lighting", "electronics", "_top3")}
+    for idle, expect_low in ((None, energystar()["desktop_short_idle_watts_median"]), (50, 50)):
+        cl = dg.Checklist(desktop_pc=True, pc_left_on_hours=4, pc_idle_watts=idle)
+        est = dg.estimate(hours, y, cl, temps, n_boot=0)
+        pc = {s.key: s for s in plan(est, cl, g, err).savings}["pc_sleep"]
+        sleep = energystar()["desktop_sleep_watts_median"]
+        central_w = idle or 60.0
+        assert pc.kwh_year < 0.5 * est.totals["electronics"] * 365 / est.days  # the cap does not bind here
+        assert pc.kwh_year_low / pc.kwh_year == pytest.approx((expect_low - sleep) / (central_w - sleep))
+
+
+def test_sample_truth_check_matches_readme():
+    r = check_sample()
+    assert round(r["estimated_top3_kwh_year"]) == 296
+    assert round(r["true_top3_kwh_year"]) == 308
+    assert abs(r["error_pct"]) < 5 and r["same_top3"]
