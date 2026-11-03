@@ -15,7 +15,7 @@ in a text editor.
 | 7 | 1:45-2:05 | Scroll to "Where your electricity goes", the bar chart, then the January average-day chart | "Here's where the energy goes. The black line is the meter and the colours are the estimate. In January the space heater is over half the bill." |
 | 8 | 2:05-2:30 | Scroll to "Accuracy": the table and the scatter plots | "Is it right? I wrote a minute-by-minute simulator of 40 student households on real Ithaca weather and scored it. Heating is within 4% at the median and the always-on load within 11%. Lighting is the weakest at 32%. The top-three saving comes within 4% of the true answer. All of that beats guessing from typical shares." |
 | 9 | 2:30-2:45 | Scroll to the CO2 paragraph and "Sources" | "CO2 comes from EPA eGRID for my grid region. Upstate New York is mostly hydro and nuclear, so the same 296 kWh would avoid almost four times more CO2 in Ohio. Prices are from EIA. Every source is linked with its vintage." |
-| 10 | 2:45-2:55 | Terminal: `pytest -q` showing `19 passed` | "It's tested, MIT licensed, and the link to the code is below." |
+| 10 | 2:45-2:55 | Terminal: `pytest -q` showing `23 passed` | "It's tested, MIT licensed, and the link to the code is below." |
 
 Tips: hide bookmarks and notifications, and set the browser zoom to 110% so the numbers can be
 read. If you go long, cut shot 3 and shorten shot 7.
